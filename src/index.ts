@@ -1,6 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
-import type { DateIOFormats } from '@date-io/core/IUtils'
+import type { DateIOFormats as BaseDateIOFormats } from '@date-io/core/IUtils'
+
+// Extend DateIOFormats to include dayOfMonthFull required by MUI X
+type DateIOFormats = BaseDateIOFormats & {
+  dayOfMonthFull: string
+}
 
 import {
   addDays,
@@ -63,6 +68,7 @@ import type {
   AdapterFormats,
   AdapterOptions,
   AdapterUnits,
+  DateBuilderReturnType,
   FieldFormatTokenMap,
   MuiPickersAdapter,
 } from './models'
@@ -136,6 +142,7 @@ const formatTokenMap: FieldFormatTokenMap = {
 
 const defaultFormats: DateIOFormats = {
   dayOfMonth: 'd',
+  dayOfMonthFull: 'dd',
   fullDate: 'PP',
   fullDateWithWeekday: 'PPPP',
   fullDateTime: 'PP p',
@@ -175,7 +182,8 @@ export default class AdapterDateFns
   public formatTokenMap = formatTokenMap
   public escapedCharacters = { start: "'", end: "'" }
 
-  constructor({ locale, formats }: AdapterOptions<DateFnsLocale, never> = {}) {
+  constructor(options?: AdapterOptions<DateFnsLocale, never>) {
+    const { locale, formats } = options || {}
     this.locale = locale
     this.formats = { ...defaultFormats, ...formats, meridiem: '' }
   }
@@ -200,7 +208,6 @@ export default class AdapterDateFns
       .map((token: string) => {
         const firstCharacter = token[0]
         if (firstCharacter === 'p' || firstCharacter === 'P') {
-          const locale = this.locale || defaultLocale
           // Use the locale's format function to expand format strings
           return this.formatByString(new Date(), token)
         }
@@ -267,7 +274,7 @@ export default class AdapterDateFns
     return addYears(value, amount)
   }
 
-  public isValid = (value: any) => {
+  public isValid = (value: any): value is Date => {
     return isValid(this.date(value))
   }
 
@@ -276,25 +283,30 @@ export default class AdapterDateFns
     comparing: Date | string,
     unit?: AdapterUnits,
   ) => {
+    const comparingDate =
+      comparing instanceof Date
+        ? comparing
+        : (this.date(comparing as any) as unknown as Date)
+
     switch (unit) {
       case 'years':
-        return differenceInYears(value, this.date(comparing) as Date)
+        return differenceInYears(value, comparingDate)
       case 'quarters':
-        return differenceInQuarters(value, this.date(comparing) as Date)
+        return differenceInQuarters(value, comparingDate)
       case 'months':
-        return differenceInMonths(value, this.date(comparing) as Date)
+        return differenceInMonths(value, comparingDate)
       case 'weeks':
-        return differenceInWeeks(value, this.date(comparing) as Date)
+        return differenceInWeeks(value, comparingDate)
       case 'days':
-        return differenceInDays(value, this.date(comparing) as Date)
+        return differenceInDays(value, comparingDate)
       case 'hours':
-        return differenceInHours(value, this.date(comparing) as Date)
+        return differenceInHours(value, comparingDate)
       case 'minutes':
-        return differenceInMinutes(value, this.date(comparing) as Date)
+        return differenceInMinutes(value, comparingDate)
       case 'seconds':
-        return differenceInSeconds(value, this.date(comparing) as Date)
+        return differenceInSeconds(value, comparingDate)
       default: {
-        return differenceInMilliseconds(value, this.date(comparing) as Date)
+        return differenceInMilliseconds(value, comparingDate)
       }
     }
   }
@@ -391,17 +403,21 @@ export default class AdapterDateFns
     return setYear(value, count)
   }
 
-  public date = (value?: any) => {
-    //
+  public date = <T extends string | null | undefined = undefined>(
+    value?: T,
+  ): DateBuilderReturnType<T, Date> => {
+    // Handle undefined case
     if (typeof value === 'undefined') {
-      return new Date()
+      return new Date() as DateBuilderReturnType<T, Date>
     }
 
+    // Handle null case
     if (value === null) {
-      return null
+      return null as DateBuilderReturnType<T, Date>
     }
 
-    return new Date(value)
+    // Handle string case
+    return new Date(value) as DateBuilderReturnType<T, Date>
   }
 
   public dateWithTimezone = (value: string | null | undefined): Date | null => {
@@ -420,7 +436,7 @@ export default class AdapterDateFns
     return value
   }
 
-  public parse = (value: string, formatString: string) => {
+  public parse = (value: string, formatString: string): Date | null => {
     if (value === '') {
       return null
     }
@@ -541,6 +557,14 @@ export default class AdapterDateFns
     return date.getMonth()
   }
 
+  public getDayOfWeek = (date: Date) => {
+    return getDay(date)
+  }
+
+  public getInvalidDate = () => {
+    return new Date('Invalid Date')
+  }
+
   public getDaysInMonth = (date: Date) => {
     return getDaysInMonth(date)
   }
@@ -621,7 +645,8 @@ export default class AdapterDateFns
     return getWeek(value, { locale: this.locale })
   }
 
-  public getYearRange = (start: Date, end: Date) => {
+  public getYearRange = (range: [Date, Date]) => {
+    const [start, end] = range
     const startDate = startOfYear(start)
     const endDate = endOfYear(end)
     const years: Date[] = []

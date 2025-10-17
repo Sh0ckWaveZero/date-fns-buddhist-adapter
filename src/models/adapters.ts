@@ -24,6 +24,11 @@ export interface AdapterFormats {
    */
   dayOfMonth: string
   /**
+   * The day of the month with leading zero.
+   * @example "01"
+   */
+  dayOfMonthFull: string
+  /**
    * The name of the day of the week.
    * @example "Wednesday"
    */
@@ -196,6 +201,9 @@ export type AdapterOptions<TLocale, TInstance> = {
   locale?: TLocale
 } & PropertyIfNotNever<'instance', TInstance>
 
+export type DateBuilderReturnType<T extends string | null | undefined, TDate> =
+  [T] extends [null] ? null : TDate
+
 export interface MuiPickersAdapter<TDate, TLocale = any> {
   /**
    * A boolean confirming that the adapter used is an MUI adapter.
@@ -226,7 +234,9 @@ export interface MuiPickersAdapter<TDate, TLocale = any> {
    * @param {any} value The optional value to parse.
    * @returns {TDate | null} The parsed date.
    */
-  date(value?: any): TDate | null
+  date<T extends string | null | undefined>(
+    value?: T,
+  ): DateBuilderReturnType<T, TDate>
   /**
    * Create a date in the date library format.
    * If no `value` parameter is provided, creates a date with the current timestamp.
@@ -734,15 +744,13 @@ export interface MuiPickersAdapter<TDate, TLocale = any> {
    * @returns {number} The number of the week of the given date.
    */
   getWeekNumber(value: TDate): number
-  // TODO v7: Replace with a single range param `[TDate, TDate]`, to be coherent with `isWithingRange`.
   /**
    * Create a list with all the years between the start end the end date.
    * @template TDate
-   * @param {TDate} start The start of the range.
-   * @param {TDate} end The end of the range.
+   * @param {[TDate, TDate]} range The range [start, end].
    * @returns {TDate[]} List of all the years between the start end the end date.
    */
-  getYearRange(start: TDate, end: TDate): TDate[]
+  getYearRange(range: [TDate, TDate]): TDate[]
   /**
    * Allow to customize how the "am"` and "pm" strings are rendered.
    * @param {"am" | "pm"} meridiem The string to render.

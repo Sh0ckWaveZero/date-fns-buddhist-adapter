@@ -1,11 +1,16 @@
 {
   "name": "@midseelee/date-fns-buddhist-adapter",
   "repository": "git@github.com:Sh0ckWaveZero/date-fns-buddhist-adapter.git",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "date-fns adapter with Buddhist years functionality",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "private": false,
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
@@ -20,7 +25,9 @@
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist",
     "rebuild": "bun run clean && bun run build",
-    "example:dev": "cd example && pnpm dev",
+    "example:dev": "cd example && bun run dev",
+    "example:install": "cd example && bun install",
+    "example:build": "cd example && bun run build",
     "start": "bun src/index.ts"
   },
   "keywords": [

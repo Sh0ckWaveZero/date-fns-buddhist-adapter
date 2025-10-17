@@ -1,3 +1,7 @@
+```
+
+```
+
 # @midseelee/date-fns-buddhist-adapter
 
 > Forked from [ascendcorp/date-fns-buddhist-adapter](https://github.com/ascendcorp/date-fns-buddhist-adapter)
@@ -17,15 +21,18 @@ bun add @midseelee/date-fns-buddhist-adapter
 ## Usage
 
 ```typescript
-import AdapterDateFns from '@midseelee/date-fns-buddhist-adapter'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-import { thTH } from 'date-fns/locale/th-TH'
+import { th } from 'date-fns/locale/th'
+import AdapterDateFns from '@midseelee/date-fns-buddhist-adapter'
 
 function App() {
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={thTH}>
-      <DatePicker />
+    <LocalizationProvider
+      dateAdapter={AdapterDateFns}
+      adapterLocale={th}
+    >
+      <DatePicker label="วันที่ (พ.ศ.)" />
     </LocalizationProvider>
   )
 }
