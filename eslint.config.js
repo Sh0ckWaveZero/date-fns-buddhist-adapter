@@ -45,6 +45,6 @@ export default [
     },
   },
   {
-    ignores: ['dist/**', 'example/dist/**', 'node_modules/**'],
+    ignores: ['dist/**', 'example/dist/**', 'node_modules/**', '**/*.spec.ts', '**/*.test.ts', 'src/__tests__/**'],
   },
 ];
