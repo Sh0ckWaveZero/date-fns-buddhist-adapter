@@ -17,6 +17,7 @@ bun add @midseelee/date-fns-buddhist-adapter date-fns@4.1.0 @date-io/date-fns@3.
 ## Peer Dependencies
 
 This package requires the following peer dependencies:
+
 - `@mui/material` ^7.3.4
 - `@mui/x-date-pickers` ^8.14.1
 - `react` ^19.2.0

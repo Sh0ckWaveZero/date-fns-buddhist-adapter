@@ -201,8 +201,10 @@ export type AdapterOptions<TLocale, TInstance> = {
   locale?: TLocale
 } & PropertyIfNotNever<'instance', TInstance>
 
-export type DateBuilderReturnType<T extends string | null | undefined, TDate> =
-  [T] extends [null] ? null : TDate
+export type DateBuilderReturnType<
+  T extends string | null | undefined,
+  TDate,
+> = [T] extends [null] ? null : TDate
 
 export interface MuiPickersAdapter<TDate, TLocale = any> {
   /**
