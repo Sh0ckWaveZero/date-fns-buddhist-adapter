@@ -1,63 +1,63 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import type { DateIOFormats } from '@date-io/core/IUtils'
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import longFormatters from 'date-fns/_lib/format/longFormatters'
-import addDays from 'date-fns/addDays'
-import addHours from 'date-fns/addHours'
-import addMinutes from 'date-fns/addMinutes'
-import addMonths from 'date-fns/addMonths'
-import addSeconds from 'date-fns/addSeconds'
-import addWeeks from 'date-fns/addWeeks'
-import addYears from 'date-fns/addYears'
-import differenceInDays from 'date-fns/differenceInDays'
-import differenceInHours from 'date-fns/differenceInHours'
-import differenceInMilliseconds from 'date-fns/differenceInMilliseconds'
-import differenceInMinutes from 'date-fns/differenceInMinutes'
-import differenceInMonths from 'date-fns/differenceInMonths'
-import differenceInQuarters from 'date-fns/differenceInQuarters'
-import differenceInSeconds from 'date-fns/differenceInSeconds'
-import differenceInWeeks from 'date-fns/differenceInWeeks'
-import differenceInYears from 'date-fns/differenceInYears'
-import eachDayOfInterval from 'date-fns/eachDayOfInterval'
-import endOfDay from 'date-fns/endOfDay'
-import endOfMonth from 'date-fns/endOfMonth'
-import endOfWeek from 'date-fns/endOfWeek'
-import endOfYear from 'date-fns/endOfYear'
-import format from 'date-fns/format'
-import formatISO from 'date-fns/formatISO'
-import getDate from 'date-fns/getDate'
-import getDay from 'date-fns/getDay'
-import getDaysInMonth from 'date-fns/getDaysInMonth'
-import getHours from 'date-fns/getHours'
-import getMilliseconds from 'date-fns/getMilliseconds'
-import getSeconds from 'date-fns/getSeconds'
-import getWeek from 'date-fns/getWeek'
-import getYear from 'date-fns/getYear'
-import isAfter from 'date-fns/isAfter'
-import isBefore from 'date-fns/isBefore'
-import isEqual from 'date-fns/isEqual'
-import isSameDay from 'date-fns/isSameDay'
-import isSameHour from 'date-fns/isSameHour'
-import isSameMonth from 'date-fns/isSameMonth'
-import isSameYear from 'date-fns/isSameYear'
-import isValid from 'date-fns/isValid'
-import isWithinInterval from 'date-fns/isWithinInterval'
-import defaultLocale from 'date-fns/locale/en-US'
-import dateFnsParse from 'date-fns/parse'
-import parseISO from 'date-fns/parseISO'
-import setDate from 'date-fns/setDate'
-import setHours from 'date-fns/setHours'
-import setMilliseconds from 'date-fns/setMilliseconds'
-import setMinutes from 'date-fns/setMinutes'
-import setMonth from 'date-fns/setMonth'
-import setSeconds from 'date-fns/setSeconds'
-import setYear from 'date-fns/setYear'
-import startOfDay from 'date-fns/startOfDay'
-import startOfMonth from 'date-fns/startOfMonth'
-import startOfWeek from 'date-fns/startOfWeek'
-import startOfYear from 'date-fns/startOfYear'
+
+import {
+  addDays,
+  addHours,
+  addMinutes,
+  addMonths,
+  addSeconds,
+  addWeeks,
+  addYears,
+  differenceInDays,
+  differenceInHours,
+  differenceInMilliseconds,
+  differenceInMinutes,
+  differenceInMonths,
+  differenceInQuarters,
+  differenceInSeconds,
+  differenceInWeeks,
+  differenceInYears,
+  eachDayOfInterval,
+  endOfDay,
+  endOfMonth,
+  endOfWeek,
+  endOfYear,
+  format,
+  formatISO,
+  getDate,
+  getDay,
+  getDaysInMonth,
+  getHours,
+  getMilliseconds,
+  getSeconds,
+  getWeek,
+  getYear,
+  isAfter,
+  isBefore,
+  isEqual,
+  isSameDay,
+  isSameHour,
+  isSameMonth,
+  isSameYear,
+  isValid,
+  isWithinInterval,
+  parse as dateFnsParse,
+  parseISO,
+  setDate,
+  setHours,
+  setMilliseconds,
+  setMinutes,
+  setMonth,
+  setSeconds,
+  setYear,
+  startOfDay,
+  startOfMonth,
+  startOfWeek,
+  startOfYear,
+} from 'date-fns'
+import { enUS as defaultLocale } from 'date-fns/locale/en-US'
 
 import type {
   AdapterFormats,
@@ -184,7 +184,7 @@ export default class AdapterDateFns
   // strict signature and delegate to the more lenient signature. Otherwise, we have downstream type errors upon usage.
   public is12HourCycleInCurrentLocale = () => {
     if (this.locale) {
-      return /a/.test(this.locale.formatLong!.time())
+      return /a/.test(this.locale.formatLong!.time({ width: 'short' }))
     }
 
     // By default date-fns is using en-US locale with am/pm enabled
@@ -200,9 +200,9 @@ export default class AdapterDateFns
       .map((token: string) => {
         const firstCharacter = token[0]
         if (firstCharacter === 'p' || firstCharacter === 'P') {
-          const longFormatter = longFormatters[firstCharacter]
           const locale = this.locale || defaultLocale
-          return longFormatter(token, locale.formatLong, {})
+          // Use the locale's format function to expand format strings
+          return this.formatByString(new Date(), token)
         }
         return token
       })
@@ -212,14 +212,13 @@ export default class AdapterDateFns
   public getFormatHelperText = (format: string) => {
     // @see https://github.com/date-fns/date-fns/blob/master/src/format/index.js#L31
     const longFormatRegexp = /P+p+|P+|p+|''|'(''|[^'])+('|$)|./g
-    const locale = this.locale || defaultLocale
     return format
       .match(longFormatRegexp)!
       .map((token) => {
         const firstCharacter = token[0]
         if (firstCharacter === 'p' || firstCharacter === 'P') {
-          const longFormatter = longFormatters[firstCharacter]
-          return longFormatter(token, locale.formatLong, {})
+          // Use the format function to expand format strings
+          return this.formatByString(new Date(), token)
         }
         return token
       })

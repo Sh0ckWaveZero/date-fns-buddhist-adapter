@@ -1,36 +1,49 @@
-# date-fns-buddhist-adapter
+# @midseelee/date-fns-buddhist-adapter
+
+> Forked from [ascendcorp/date-fns-buddhist-adapter](https://github.com/ascendcorp/date-fns-buddhist-adapter)
 
 date-fns adapter with Buddhist years functionality compatible with [MUI-X](https://github.com/mui/mui-x) date-picker.
 
-<p align="center">
-  <img src="https://github.com/ascendcorp/date-fns-buddhist-adapter/assets/6365230/55babda5-59f7-4046-8b90-7d4e2fdadcb1" width="500px" />
-  <br />
-  <a href="https://ascendcorp.github.io/date-fns-buddhist-adapter" target="_blank">Live Demo</a>
-</p>
-
-## Get Started
+## Installation
 
 ```shell
-  pnpm add date-fns-buddhist-adapter
+npm install @midseelee/date-fns-buddhist-adapter
+# or
+pnpm add @midseelee/date-fns-buddhist-adapter
+# or
+bun add @midseelee/date-fns-buddhist-adapter
 ```
 
-[Code example](https://github.com/ascendcorp/date-fns-buddhist-adapter/blob/gh-pages/src/app/page.tsx) available
+## Usage
 
-## Contribute
+```typescript
+import AdapterDateFns from '@midseelee/date-fns-buddhist-adapter'
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import { thTH } from 'date-fns/locale/th-TH'
 
-First, You need to prepare development environment
-
-Required [Node Version Manager](https://github.com/nvm-sh/nvm) package to align NodeJS version.
-
-```shell
-  pnpm install
-  pnpm prepare
-  nvm use
+function App() {
+  return (
+    <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={thTH}>
+      <DatePicker />
+    </LocalizationProvider>
+  )
+}
 ```
 
-Finally, create a pull request for the Ascendcorp team.
+## Credits
 
-## Special Thanks
+This package is forked from [ascendcorp/date-fns-buddhist-adapter](https://github.com/ascendcorp/date-fns-buddhist-adapter)
 
-1. [mui-x](https://github.com/mui/mui-x)
-2. [date-fns-be](https://github.com/tarzui/date-fns-be)
+### Special Thanks
+
+1. [Ascendcorp](https://github.com/ascendcorp) - Original implementation
+2. [mui-x](https://github.com/mui/mui-x) - MUI X Date Pickers
+3. [date-fns-be](https://github.com/tarzui/date-fns-be) - Buddhist Era utilities
+
+## License
+
+MIT License
+
+- Copyright (c) 2023 Ascendcorp (original)
+- Copyright (c) 2025 midseelee (fork modifications)

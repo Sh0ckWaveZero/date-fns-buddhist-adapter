@@ -1,0 +1,28 @@
+# Source files
+src/
+__tests__/
+*.test.ts
+*.spec.ts
+
+# Development files
+.vscode/
+.github/
+.husky/
+.eslintrc
+.eslintignore
+.prettierrc
+.prettierignore
+tsconfig.json
+jest.config.js
+bun.lockb
+
+# Build files
+*.map
+
+# Documentation (keep README.md and LICENSE)
+example/
+
+# Other
+.nvmrc
+.DS_Store
+node_modules/
