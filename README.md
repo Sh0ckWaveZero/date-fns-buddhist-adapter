@@ -23,7 +23,7 @@ bun add @midseelee/date-fns-buddhist-adapter
 ```typescript
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-import { th } from 'date-fns/locale/th'
+import { th } from 'date-fns/locale'
 import AdapterDateFns from '@midseelee/date-fns-buddhist-adapter'
 
 function App() {

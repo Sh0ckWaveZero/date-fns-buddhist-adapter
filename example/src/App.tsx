@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { Container, Typography, Box, Paper, Stack } from '@mui/material'
-import { th as thLocale } from 'date-fns/locale/th'
+import { th } from 'date-fns/locale'
 import AdapterDateFns from '../../src/index'
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
   return (
     <LocalizationProvider
       dateAdapter={AdapterDateFns}
-      adapterLocale={thLocale}
+      adapterLocale={th}
     >
       <Container maxWidth="md" sx={{ py: 4 }}>
         <Paper elevation={3} sx={{ p: 4 }}>
