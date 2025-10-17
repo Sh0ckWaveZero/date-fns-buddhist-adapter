@@ -3,7 +3,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { Container, Typography, Box, Paper, Stack } from '@mui/material'
 import { th } from 'date-fns/locale'
-import AdapterDateFns from '../../src/index'
+import AdapterDateFns from '@midseelee/date-fns-buddhist-adapter'
 
 function App() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date())
@@ -31,6 +31,7 @@ function App() {
               </Typography>
               <DatePicker
                 label="วันที่ (พ.ศ.)"
+                format='dd MMM yyyy'
                 value={selectedDate}
                 onChange={(newValue) => setSelectedDate(newValue)}
                 slotProps={{
@@ -91,7 +92,7 @@ function App() {
                 <pre style={{ margin: 0, fontFamily: 'monospace', fontSize: '0.875rem' }}>
 {`import { LocalizationProvider } from '@mui/x-date-pickers'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-import { th } from 'date-fns/locale/th'
+import { th } from 'date-fns/locale'
 import AdapterDateFns from '@midseelee/date-fns-buddhist-adapter'
 
 function App() {

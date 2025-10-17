@@ -1,7 +1,7 @@
 {
   "name": "@midseelee/date-fns-buddhist-adapter",
   "repository": "git@github.com:Sh0ckWaveZero/date-fns-buddhist-adapter.git",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "date-fns adapter with Buddhist years functionality",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -42,14 +42,17 @@
   "author": "midseelee",
   "license": "MIT",
   "engines": {
-    "node": ">=8.16.0",
-    "pnpm": ">=8.6.0"
+    "node": ">=18.0.0",
+    "bun": ">=1.0.0"
   },
   "dependencies": {
     "@date-io/date-fns": "3.2.1",
-    "@mui/material": "7.3.4",
-    "date-fns": "4.1.0",
-    "react": "19.2.0"
+    "date-fns": "4.1.0"
+  },
+  "peerDependencies": {
+    "@mui/material": "^7.3.4",
+    "@mui/x-date-pickers": "^8.14.1",
+    "react": "^19.2.0"
   },
   "devDependencies": {
     "@eslint/js": "9.37.0",

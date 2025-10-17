@@ -1,7 +1,3 @@
-```
-
-```
-
 # @midseelee/date-fns-buddhist-adapter
 
 > Forked from [ascendcorp/date-fns-buddhist-adapter](https://github.com/ascendcorp/date-fns-buddhist-adapter)
@@ -11,12 +7,19 @@ date-fns adapter with Buddhist years functionality compatible with [MUI-X](https
 ## Installation
 
 ```shell
-npm install @midseelee/date-fns-buddhist-adapter
+npm install @midseelee/date-fns-buddhist-adapter date-fns@4.1.0 @date-io/date-fns@3.2.1
 # or
-pnpm add @midseelee/date-fns-buddhist-adapter
+pnpm add @midseelee/date-fns-buddhist-adapter date-fns@4.1.0 @date-io/date-fns@3.2.1
 # or
-bun add @midseelee/date-fns-buddhist-adapter
+bun add @midseelee/date-fns-buddhist-adapter date-fns@4.1.0 @date-io/date-fns@3.2.1
 ```
+
+## Peer Dependencies
+
+This package requires the following peer dependencies:
+- `@mui/material` ^7.3.4
+- `@mui/x-date-pickers` ^8.14.1
+- `react` ^19.2.0
 
 ## Usage
 

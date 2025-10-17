@@ -12,7 +12,8 @@
       "Bash(bun run dev)",
       "Bash(bun run:*)",
       "Bash(npm run build:*)",
-      "Bash(npm run typecheck:*)"
+      "Bash(npm run typecheck:*)",
+      "Bash(npm run dev:*)"
     ],
     "deny": [],
     "ask": []
