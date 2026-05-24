@@ -171,9 +171,10 @@ const defaultFormats: DateIOFormats = {
   year: 'yyyy',
 }
 
-export default class AdapterDateFns
-  implements MuiPickersAdapter<Date, DateFnsLocale>
-{
+export default class AdapterDateFns implements MuiPickersAdapter<
+  Date,
+  DateFnsLocale
+> {
   public isMUIAdapter = true
   public isTimezoneCompatible = false
   public lib = 'date-fns-buddhist'

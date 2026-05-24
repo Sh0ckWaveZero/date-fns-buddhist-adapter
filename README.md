@@ -7,20 +7,20 @@ date-fns adapter with Buddhist years functionality compatible with [MUI-X](https
 ## Installation
 
 ```shell
-npm install @midseelee/date-fns-buddhist-adapter date-fns@4.1.0 @date-io/date-fns@3.2.1
+npm install @midseelee/date-fns-buddhist-adapter date-fns@4.3.0 @date-io/date-fns@3.2.1
 # or
-pnpm add @midseelee/date-fns-buddhist-adapter date-fns@4.1.0 @date-io/date-fns@3.2.1
+pnpm add @midseelee/date-fns-buddhist-adapter date-fns@4.3.0 @date-io/date-fns@3.2.1
 # or
-bun add @midseelee/date-fns-buddhist-adapter date-fns@4.1.0 @date-io/date-fns@3.2.1
+bun add @midseelee/date-fns-buddhist-adapter date-fns@4.3.0 @date-io/date-fns@3.2.1
 ```
 
 ## Peer Dependencies
 
 This package requires the following peer dependencies:
 
-- `@mui/material` ^7.3.4
-- `@mui/x-date-pickers` ^8.14.1
-- `react` ^19.2.0
+- `@mui/material` ^9.0.1
+- `@mui/x-date-pickers` ^9.3.0
+- `react` ^19.2.6
 
 ## Usage
 

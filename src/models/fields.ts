@@ -105,9 +105,9 @@ export interface BaseFieldProps<
   TSection extends FieldSection,
   TError,
 > extends Omit<
-    UseFieldInternalProps<TValue, TDate, TSection, TError>,
-    'format'
-  > {
+  UseFieldInternalProps<TValue, TDate, TSection, TError>,
+  'format'
+> {
   className?: string
   format?: string
   disabled?: boolean

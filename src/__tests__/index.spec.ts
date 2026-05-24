@@ -416,6 +416,236 @@ describe('AdapterDateFns', () => {
     })
   })
 
+  describe('expandFormat and getFormatHelperText', () => {
+    const adapter = new AdapterDateFns()
+
+    it('should expand format with P token', () => {
+      expect(adapter.expandFormat('P')).toBeDefined()
+      expect(typeof adapter.expandFormat('P')).toEqual('string')
+    })
+
+    it('should expand format with non-P token', () => {
+      expect(adapter.expandFormat('dd/MM/yyyy')).toBeDefined()
+    })
+
+    it('should get format helper text', () => {
+      const helperText = adapter.getFormatHelperText('dd/MM/yyyy')
+      expect(typeof helperText).toEqual('string')
+      expect(helperText).toEqual('dd/mm/yyyy')
+    })
+
+    it('should get format helper text with time tokens', () => {
+      const helperText = adapter.getFormatHelperText('Pp')
+      expect(typeof helperText).toEqual('string')
+    })
+  })
+
+  describe('getDiff with all units', () => {
+    const adapter = new AdapterDateFns()
+
+    it('should diff in years', () => {
+      const a = new Date(2023, 0, 1)
+      const b = new Date(2020, 0, 1)
+      expect(adapter.getDiff(a, b, 'years')).toEqual(3)
+    })
+
+    it('should diff in quarters', () => {
+      const a = new Date(2023, 6, 1)
+      const b = new Date(2023, 0, 1)
+      expect(adapter.getDiff(a, b, 'quarters')).toEqual(2)
+    })
+
+    it('should diff in months', () => {
+      const a = new Date(2023, 5, 1)
+      const b = new Date(2023, 0, 1)
+      expect(adapter.getDiff(a, b, 'months')).toEqual(5)
+    })
+
+    it('should diff in weeks', () => {
+      const a = new Date(2023, 0, 15)
+      const b = new Date(2023, 0, 1)
+      expect(adapter.getDiff(a, b, 'weeks')).toEqual(2)
+    })
+
+    it('should diff in days', () => {
+      const a = new Date(2023, 0, 10)
+      const b = new Date(2023, 0, 1)
+      expect(adapter.getDiff(a, b, 'days')).toEqual(9)
+    })
+
+    it('should diff in hours', () => {
+      const a = new Date(2023, 0, 1, 5, 0, 0)
+      const b = new Date(2023, 0, 1, 0, 0, 0)
+      expect(adapter.getDiff(a, b, 'hours')).toEqual(5)
+    })
+
+    it('should diff in minutes', () => {
+      const a = new Date(2023, 0, 1, 0, 30, 0)
+      const b = new Date(2023, 0, 1, 0, 0, 0)
+      expect(adapter.getDiff(a, b, 'minutes')).toEqual(30)
+    })
+
+    it('should diff in seconds', () => {
+      const a = new Date(2023, 0, 1, 0, 0, 45)
+      const b = new Date(2023, 0, 1, 0, 0, 0)
+      expect(adapter.getDiff(a, b, 'seconds')).toEqual(45)
+    })
+
+    it('should diff in milliseconds for unknown unit', () => {
+      const a = new Date(2023, 0, 1, 0, 0, 0, 500)
+      const b = new Date(2023, 0, 1, 0, 0, 0, 0)
+      expect(adapter.getDiff(a, b, 'milliseconds' as any)).toEqual(500)
+    })
+
+    it('should diff with Date input as comparing value', () => {
+      const a = new Date(2023, 5, 10)
+      const b = new Date(2023, 0, 1)
+      expect(adapter.getDiff(a, b, 'days')).toBeGreaterThan(0)
+    })
+  })
+
+  describe('Date getters and setters', () => {
+    const adapter = new AdapterDateFns()
+    const date = new Date(2023, 5, 10, 6, 44, 30, 500)
+
+    it('should get and set seconds', () => {
+      expect(adapter.getSeconds(date)).toEqual(30)
+      const updated = adapter.setSeconds(date, 0)
+      expect(adapter.getSeconds(updated)).toEqual(0)
+    })
+
+    it('should get and set milliseconds', () => {
+      expect(adapter.getMilliseconds(date)).toEqual(500)
+      const updated = adapter.setMilliseconds(date, 0)
+      expect(adapter.getMilliseconds(updated)).toEqual(0)
+    })
+
+    it('should get and set year', () => {
+      const updated = adapter.setYear(date, 2025)
+      expect(adapter.getYear(updated)).toEqual(2025)
+    })
+
+    it('should set month', () => {
+      const updated = adapter.setMonth(date, 0)
+      expect(adapter.getMonth(updated)).toEqual(0)
+    })
+
+    it('should set date', () => {
+      const updated = adapter.setDate(date, 25)
+      expect(adapter.getDate(updated)).toEqual(25)
+    })
+  })
+
+  describe('Start/End of periods', () => {
+    const adapter = new AdapterDateFns()
+    const date = new Date(2023, 5, 10)
+
+    it('should get start of week', () => {
+      const result = adapter.startOfWeek(date)
+      expect(adapter.getDate(result)).toEqual(4)
+    })
+
+    it('should get end of week', () => {
+      const result = adapter.endOfWeek(date)
+      expect(adapter.getDate(result)).toEqual(10)
+    })
+
+    it('should get start of year', () => {
+      const result = adapter.startOfYear(date)
+      expect(adapter.getMonth(result)).toEqual(0)
+      expect(adapter.getDate(result)).toEqual(1)
+    })
+
+    it('should get end of year', () => {
+      const result = adapter.endOfYear(date)
+      expect(adapter.getMonth(result)).toEqual(11)
+      expect(adapter.getDate(result)).toEqual(31)
+    })
+
+    it('should check same hour', () => {
+      const date = new Date(2023, 5, 10, 6, 44, 30)
+      const sameHour = new Date(2023, 5, 10, 6, 30, 0)
+      const diffHour = new Date(2023, 5, 10, 7, 0, 0)
+      expect(adapter.isSameHour(date, sameHour)).toEqual(true)
+      expect(adapter.isSameHour(date, diffHour)).toEqual(false)
+    })
+  })
+
+  describe('Day comparison methods', () => {
+    const adapter = new AdapterDateFns()
+    const date = new Date(2023, 5, 10, 12, 0, 0)
+
+    it('should check isAfterDay', () => {
+      const nextDay = new Date(2023, 5, 9, 23, 59, 59)
+      expect(adapter.isAfterDay(date, nextDay)).toEqual(true)
+    })
+
+    it('should check isBeforeDay', () => {
+      const prevDay = new Date(2023, 5, 11, 0, 0, 0)
+      expect(adapter.isBeforeDay(date, prevDay)).toEqual(true)
+    })
+
+    it('should check isBeforeYear', () => {
+      const nextYear = new Date(2024, 0, 1)
+      expect(adapter.isBeforeYear(date, nextYear)).toEqual(true)
+    })
+
+    it('should check isAfterYear', () => {
+      const prevYear = new Date(2022, 11, 31)
+      expect(adapter.isAfterYear(date, prevYear)).toEqual(true)
+    })
+  })
+
+  describe('Month navigation', () => {
+    const adapter = new AdapterDateFns()
+    const date = new Date(2023, 5, 10)
+
+    it('should get next month', () => {
+      const next = adapter.getNextMonth(date)
+      expect(adapter.getMonth(next)).toEqual(6)
+    })
+
+    it('should get previous month', () => {
+      const prev = adapter.getPreviousMonth(date)
+      expect(adapter.getMonth(prev)).toEqual(4)
+    })
+  })
+
+  describe('Week number and toJsDate', () => {
+    const adapter = new AdapterDateFns()
+
+    it('should get week number', () => {
+      const date = new Date(2023, 0, 2)
+      expect(typeof adapter.getWeekNumber(date)).toEqual('number')
+    })
+
+    it('should convert to JS date', () => {
+      const date = new Date(2023, 5, 10)
+      expect(adapter.toJsDate(date)).toEqual(date)
+    })
+  })
+
+  describe('Parse edge cases', () => {
+    const adapter = new AdapterDateFns()
+
+    it('should parse dd/MM/yyyy with year <= 543', () => {
+      const parsed = adapter.parse('10/06/0500', 'dd/MM/yyyy')
+      expect(parsed).toBeInstanceOf(Date)
+      expect(adapter.getYear(parsed!)).toEqual(500)
+    })
+
+    it('should parse MM/yyyy with year <= 543', () => {
+      const parsed = adapter.parse('06/0500', 'MM/yyyy')
+      expect(parsed).toBeInstanceOf(Date)
+      expect(adapter.getYear(parsed!)).toEqual(500)
+    })
+
+    it('should parse yyyy with year <= 543', () => {
+      const parsed = adapter.parse('0500', 'yyyy')
+      expect(parsed).toBeInstanceOf(Date)
+    })
+  })
+
   describe('Edge cases and error handling', () => {
     const adapter = new AdapterDateFns()
 

@@ -6,7 +6,7 @@ const config: Config = {
   testEnvironment: 'node',
   clearMocks: true,
   collectCoverage: false,
-  collectCoverageFrom: ['src/**/*.ts', '!**/node_modules/**'],
+  collectCoverageFrom: ['src/**/*.ts', '!**/node_modules/**', '!src/models/**'],
   coverageDirectory: 'coverage',
   coverageProvider: 'v8',
   coverageReporters: ['text-summary'],
