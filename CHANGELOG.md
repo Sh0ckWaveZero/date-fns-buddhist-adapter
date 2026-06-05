@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.81] - 2026-06-05
+
+### Fixed
+
+- Resolved 16 security vulnerabilities in transitive dependencies by adding `overrides` for `brace-expansion`, `minimatch`, `diff`, `flatted`, `picomatch`, and `js-yaml`
+
+### Changed
+
+- Updated `@typescript-eslint/eslint-plugin` from 8.59.4 to 8.60.1
+- Updated `@typescript-eslint/parser` from 8.59.4 to 8.60.1
+- Updated `eslint-import-resolver-typescript` from 4.4.4 to 4.4.5
+- Updated `eslint-plugin-prettier` from 5.5.5 to 5.5.6
+- Updated `@types/node` from 25.8.4 to 25.9.1
+- Updated `@types/react` from 19.2.15 to 19.2.16
+
 ## [1.0.8] - 2026-05-24
 
 ### Changed
