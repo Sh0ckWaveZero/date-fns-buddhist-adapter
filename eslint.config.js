@@ -45,6 +45,16 @@ export default [
     },
   },
   {
-    ignores: ['dist/**', 'example/dist/**', 'node_modules/**', '**/*.spec.ts', '**/*.test.ts', 'src/__tests__/**', 'src/models/**'],
+    ignores: [
+      'dist/**',
+      'node_modules/**',
+      '.vscode/**',
+      'coverage/**',
+      'example/**',
+      '**/*.spec.ts',
+      '**/*.test.ts',
+      'src/__tests__/**',
+      'src/models/**',
+    ],
   },
 ];

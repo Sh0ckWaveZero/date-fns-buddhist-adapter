@@ -275,8 +275,8 @@ export default class AdapterDateFns implements MuiPickersAdapter<
     return addYears(value, amount)
   }
 
-  public isValid = (value: any): value is Date => {
-    return isValid(this.date(value))
+  public isValid = (value: unknown): value is Date => {
+    return isValid(this.date(value as string | null | undefined))
   }
 
   public getDiff = (
@@ -285,9 +285,7 @@ export default class AdapterDateFns implements MuiPickersAdapter<
     unit?: AdapterUnits,
   ) => {
     const comparingDate =
-      comparing instanceof Date
-        ? comparing
-        : (this.date(comparing as any) as unknown as Date)
+      comparing instanceof Date ? comparing : this.date(comparing)
 
     switch (unit) {
       case 'years':
@@ -510,12 +508,12 @@ export default class AdapterDateFns implements MuiPickersAdapter<
     return result.replace(christianYear, buddhishYear)
   }
 
-  public isEqual = (date: any, comparing: any) => {
+  public isEqual = (date: unknown, comparing: unknown) => {
     if (date === null && comparing === null) {
       return true
     }
 
-    return isEqual(date, comparing)
+    return isEqual(date as Date, comparing as Date)
   }
 
   public isNull = (date: Date) => {

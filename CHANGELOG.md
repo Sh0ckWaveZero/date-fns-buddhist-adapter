@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-09-01
+
+### Security
+
+- Resolved all reported vulnerabilities (was: 1 critical, 6 high, 1 moderate, 2 low) by regenerating `package-lock.json` with patched transitive dev dependencies and updating `example/` dependencies (`vite` to 8.2.2, plus `nanoid`, `postcss`, `yaml` fixes)
+- Updated vulnerable transitive dependencies in `bun.lock` for root and `example/` (`js-yaml` 3.15.2, `minimatch` 3.1.5 / 9.0.9 / 10.2.6, `picomatch` 2.3.2 / 4.0.7, `brace-expansion`, `diff`, `flatted`)
+- Added `legacy-peer-deps=true` to `.npmrc` (root and `example/`) so `npm ci` works until `eslint-plugin-import` declares `eslint` 10 support in its peer range
+
+### Changed
+
+- Verified compatibility with the latest MUI: dev dependency `@mui/material` updated from 9.0.1 to 9.4.0, and the example app builds against `@mui/material` 9.4.0 with `@mui/x-date-pickers` 9.12.0 (peer ranges `^9.0.1` / `^9.3.0` already cover the latest versions and are unchanged)
+
+### Fixed
+
+- Ported legacy `.eslintignore` entries (`.vscode`, `coverage`, `example`) into `eslint.config.js` `ignores` and removed the file, which ESLint 10 no longer reads
+- Replaced `any` with `unknown` in `isValid` and `isEqual` signatures and removed a redundant cast in `getDiff` (`src/index.ts`)
+
 ## [1.0.81] - 2026-06-05
 
 ### Fixed
