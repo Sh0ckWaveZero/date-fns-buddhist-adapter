@@ -1,6 +1,6 @@
 {
-  "buildCommand": "bun run build",
-  "installCommand": "bun install",
+  "buildCommand": "npm run build",
+  "installCommand": "cd .. && npm ci && npm run build && cd example && npm ci",
   "framework": null,
   "outputDirectory": "dist"
 }
