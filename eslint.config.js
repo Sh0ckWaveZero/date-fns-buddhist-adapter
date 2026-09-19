@@ -28,6 +28,9 @@ export default [
       ...importPlugin.configs.recommended.rules,
       ...jestPlugin.configs.recommended.rules,
       ...prettierConfig.rules,
+      // TypeScript already reports undefined globals; no-undef only produces
+      // false positives for DOM/lib types in .ts/.tsx files
+      'no-undef': 'off',
       'eqeqeq': 'error',
       'no-constant-binary-expression': 'error',
       'import/no-cycle': 'warn',
@@ -51,7 +54,9 @@ export default [
       '.vscode/**',
       'coverage/**',
       'example/**',
+      'jest.setup.dom.ts',
       '**/*.spec.ts',
+      '**/*.spec.tsx',
       '**/*.test.ts',
       'src/__tests__/**',
       'src/models/**',
