@@ -1,7 +1,7 @@
 {
   "name": "@midseelee/date-fns-buddhist-adapter",
   "repository": "git@github.com:Sh0ckWaveZero/date-fns-buddhist-adapter.git",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "date-fns adapter with Buddhist years functionality",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -20,6 +20,7 @@
   "private": false,
   "files": [
     "dist",
+    "!dist/**/*.map",
     "README.md",
     "LICENSE"
   ],
