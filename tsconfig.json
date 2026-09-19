@@ -8,7 +8,9 @@
     "outDir": "./dist",
     "module": "esnext",
     "moduleResolution": "bundler",
-    "types": ["jest"]
+    "types": ["jest"],
+    "jsx": "react-jsx",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"]
   },
   "include": ["src"],
   "exclude": [

@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-09-19
+
+### Added
+
+- New `date-range-picker` subpath export (`@midseelee/date-fns-buddhist-adapter/date-range-picker`): a MUI-styled date range picker (`PickerBase` inline, `PickerModal` popover/dialog) adapted from `mui-daterange-picker-plus`, with Buddhist Era labels by default (`buddhistEra`, default `true`), locale-aware week starts, `minDate`/`maxDate`, quick-select presets and custom labels
+- New `PickerInput`: read-only MUI `TextField` trigger with a calendar icon that opens the picker popover, displaying the selected range in Buddhist Era (`format`, default `'dd/MM/yyyy'`) with an uppercase-format placeholder when empty; supports the same controlled/uncontrolled contract
+- `getDefaultRanges` localizes preset labels by `locale.code` (Thai `th` → `วันนี้`, `เมื่อวาน`, `สัปดาห์นี้`, `สัปดาห์ที่แล้ว`, `7 วันล่าสุด`, `เดือนนี้`, `เดือนที่แล้ว`, `ปีนี้`, `ปีที่แล้ว`); other locales fall back to English labels
+- Comprehensive documentation for the picker: README API reference (component overview, full props tables, `Labels`, `getDefaultRanges`, types, behavior notes and Thai-language recipes) and complete JSDoc on every picker prop and type
+- MUI-style controlled/uncontrolled value support: the picker is controlled via `value` + `onChange`, or uncontrolled via `defaultValue` (a controlled picker opens on its value's month); `initialDateRange` remains as a deprecated alias of `defaultValue`
+- jsdom component test suite (`jest-environment-jsdom`, `@testing-library/react`) running as a second jest project (`dom`) alongside the existing node project, covering the controlled/uncontrolled behavior and the modal submit flow
+
+### Changed
+
+- Bumped `peerDependencies` minimums to `@mui/material` ^9.4.0, `@mui/x-date-pickers` ^9.14.0 and `react` ^19.3.0, matching the latest verified versions (the `date-range-picker` subpath itself only needs `@mui/material` and `react`)
+- Updated dependencies to the latest versions: `eslint` 10.11.0, `jest`/`jest-environment-jsdom` 30.5.2, `prettier` 3.9.8, `react`/`react-dom` 19.3.0, `@types/react` 19.3.0, `@types/node` 26.6.2, `@typescript-eslint/*` 8.70.0 (and matching `@typescript-eslint/utils` override), `eslint-plugin-jest` 29.16.6, `ts-jest` 29.4.12, `@tsconfig/node-lts` 24.0.1. `typescript` stays at 6.0.3 — the newest version supported by `@typescript-eslint` (`<6.1.0`) and `ts-jest` (`<7`)
+- Example app: updated `@mui/x-date-pickers` 9.14.0, `date-fns` 4.4.0, `vite` 8.3.0, `@vitejs/plugin-react` 6.1.1 and reworked the page into four demo sections (adapter DatePicker, `PickerInput`, `PickerModal`, `PickerBase`), each with a usage snippet and equally sized inputs
+- `formatWithEra` now renders Buddhist Era years by default (the `buddhistEra` option defaults to `true`, matching the picker prop's documented default)
+- `Footer` and `Month` components use `sx` instead of deprecated MUI system props (`textAlign`, `color`)
+- Example app now links the local package via `file:..` and demonstrates the controlled `PickerModal` with Buddhist Era formatting
+
 ## [1.1.0] - 2026-09-01
 
 ### Security
