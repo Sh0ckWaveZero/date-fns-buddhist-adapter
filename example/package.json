@@ -12,11 +12,11 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@midseelee/date-fns-buddhist-adapter": "file:..",
-    "@mui/material": "^9.4.0",
-    "@mui/x-date-pickers": "^9.14.0",
+    "@mui/material": "^9.5.0",
+    "@mui/x-date-pickers": "^9.16.0",
     "date-fns": "^4.4.0",
-    "react": "^19.3.0",
-    "react-dom": "^19.3.0"
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
   },
   "devDependencies": {
     "@types/react": "^19.3.0",

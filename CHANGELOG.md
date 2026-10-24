@@ -5,7 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.2.2] - 2026-10-24
+## [1.3.0] - 2026-10-24
+
+### Changed
+
+- Bumped `peerDependencies` minimums to `@mui/material` ^9.5.0, `@mui/x-date-pickers` ^9.16.0 and `react` ^19.3.1, matching the latest verified versions (the `date-range-picker` subpath itself only needs `@mui/material` and `react`)
+- Verified compatibility with the latest libraries: dev dependency `@mui/material` updated to 9.5.0 and `react`/`react-dom` to 19.3.1; the example app runs on `@mui/x-date-pickers` 9.16.0 (`date-fns` 4.4.0 and `@date-io/date-fns` 3.2.1 were already the latest)
+- Updated the README peer dependency list to match
 
 ### Security
 
