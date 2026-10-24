@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.2] - 2026-10-24
+
+### Security
+
+- Resolved all Dependabot alerts and `bun audit` findings (6: 4 high, 2 moderate) in transitive dev dependencies by raising the `overrides` floors: `brace-expansion` `>=1.1.13` → `>=5.0.12` (2 high DoS + 1 moderate), new `browserslist` `>=4.28.7` (2 high OOM/crash) and `baseline-browser-mapping` `>=2.11.0` (moderate DoS), plus `handlebars` `>=4.7.10` and `@humanfs/node` `>=0.16.8`; `bun audit` and `npm audit` both report 0
+- Example app: `vite` `^8.3.0` → `^8.3.3` (resolved 8.3.5) fixing 3 launch-editor advisories and a `source-map-js` `>=1.2.2` override (high DoS); all four lockfiles (root + example, bun + npm) resynced and verified under both trees
+
+### Fixed
+
+- Example app: the Vercel build now builds the root package before installing, fixing the deploy pipeline
+
 ## [1.2.1] - 2026-09-19
 
 ### Changed
