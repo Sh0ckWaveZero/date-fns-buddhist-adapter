@@ -22,6 +22,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Example app: the Vercel build now builds the root package before installing, fixing the deploy pipeline
 
+## [1.2.2] - 2026-10-24
+
+### Security
+
+- Security-only release: resolved all Dependabot alerts and `bun audit` findings (4 high, 2 moderate) in transitive dev dependencies — see [1.3.0] for the full list of packages and override floors
+
 ## [1.2.1] - 2026-09-19
 
 ### Changed
