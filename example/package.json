@@ -29,6 +29,6 @@
     "yaml": ">=1.10.3",
     "handlebars": ">=4.7.10",
     "source-map-js": ">=1.2.2",
-    "@humanfs/node": ">=0.16.8"
+    "@humanfs/node": ">=0.16.8 <0.17"
   }
 }
