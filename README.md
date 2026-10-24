@@ -18,9 +18,9 @@ bun add @midseelee/date-fns-buddhist-adapter date-fns@4.4.0 @date-io/date-fns@3.
 
 This package requires the following peer dependencies:
 
-- `@mui/material` ^9.4.0
-- `@mui/x-date-pickers` ^9.14.0 (only if you use the MUI X Date Pickers adapter; the `date-range-picker` subpath works without it)
-- `react` ^19.3.0
+- `@mui/material` ^9.5.0
+- `@mui/x-date-pickers` ^9.16.0 (only if you use the MUI X Date Pickers adapter; the `date-range-picker` subpath works without it)
+- `react` ^19.3.1
 
 ## Usage
 
